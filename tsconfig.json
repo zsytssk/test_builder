@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "emitDeclarationOnly": true,
+        "module": "commonjs",
+        "rootDir": ".",
+        "outDir": "libs",
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true,
+        "sourceMap": false,
+        "declaration": true,
+        "target": "esnext",
+        "watch": true
+    },
+    "include": ["./src", "./test"]
+}
