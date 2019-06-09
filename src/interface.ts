@@ -1,10 +1,9 @@
 export type TestConfig = {
-    status: TestScopeStatus;
+    is_on: boolean;
 };
 
 /** 创建Test环境 */
 export interface TestBuilder {
-    add(name: string, fun: TestFun, config?: TestConfig): TestScope;
     findTest(scope: string): TestScope;
     runTest(scope: string);
     enableTest(scope: string);
@@ -15,11 +14,13 @@ export interface TestBuilder {
 export interface TestScope {
     name: string;
     status: TestScopeStatus;
+    config: TestConfig;
     children?: TestScope[];
+    init(config: TestConfig): void;
+    run(runner: TestRunner): void;
 }
 
-export type TestScopeRunStatus = 'normal' | 'running' | 'complete';
-export type TestScopeStatus = 'on' | 'off';
+export type TestScopeStatus = 'normal' | 'running' | 'complete';
 
 export enum TestResult {
     Fail = 'fail',

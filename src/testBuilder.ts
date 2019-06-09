@@ -1,35 +1,33 @@
-import { TestBuilder, TestFun, TestResult, TestConfig } from './interface';
-import { TestScopeCtor } from './testScope';
+import { TestBuilder, TestConfig, TestRunner, TestScope } from './interface';
+import { TestRunnerCtor } from './testRunner';
+import { findTest } from './utils';
 
 export class TestBuilderCtor implements TestBuilder {
     private config: TestConfig;
-    private top_test: TestScopeCtor;
-    constructor(config?: TestConfig) {
-        if (config) {
-            this.config = config;
+    private runner: TestRunner;
+    private top_scope: TestScope;
+    constructor(top_scope: TestScope, default_config: TestConfig) {
+        this.top_scope = top_scope;
+        this.runner = new TestRunnerCtor();
+        if (default_config) {
+            this.config = default_config;
+        }
+        this.init();
+    }
+    private init() {
+        const { config, top_scope } = this;
+        top_scope.init(config);
+    }
+    public findTest(scope: string): TestScope {
+        const { top_scope } = this;
+        const path_arr = scope.split('.');
+        return findTest(top_scope, path_arr);
+    }
+    public runTest(scope: string) {
+        const test = this.findTest(scope);
+        if (!test) {
         }
     }
-    public add(name: string, fun: TestFun, config?: TestConfig): TestScopeCtor {
-        config = config || ({} as TestConfig);
-        if (config) {
-            config = {
-                ...this.config,
-                ...config,
-            };
-        }
-        const top_test = new TestScopeCtor(name, fun, config);
-        this.top_test = top_test;
-
-        return top_test;
-    }
-    public findTest(scope: string): TestScopeCtor {
-        const { top_test } = this;
-        const scope_arr = scope.split('.');
-        if (scope) {
-            return;
-        }
-    }
-    public runTest(scope: string) {}
     public enableTest(scope: string) {}
     public disableTest(scope: string) {}
 }

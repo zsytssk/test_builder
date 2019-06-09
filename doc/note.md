@@ -1,3 +1,23 @@
+-   @ques findTest 要不要支持 fuzzyFind
+
+-   @ques test 到底在什么时候运行...
+
+-   @ques 怎么用 js 运行文件...
+
+    -   `ts-node file`
+
+-   @ques 能不能用 Test 运行自己的 测试 Test
+
+    -   完成自举
+
+-   testBuilder runTest 将原来 is_on=false,设置为 true 在去运行
+
+    -   这要不要上上层的 Test 也运行呢...
+
+-   @ques testTop 不需要 run
+
+## 2019-06-09 20:03:36
+
 -   @ques 我以前写的 test 能不能借用...
 
 -   @ques 如果要支持 node, 我需要做什么...
