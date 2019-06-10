@@ -39,7 +39,9 @@ export class TestScopeCtor implements TestScope {
     public run(runner: TestRunner) {
         const { raw_fun, children, config } = this;
         this.status = 'running';
-        runTest(this, runner, raw_fun);
+        if (raw_fun) {
+            runTest(this, runner, raw_fun);
+        }
         for (const item of children) {
             if (config.is_on) {
                 item.run(runner);

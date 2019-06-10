@@ -31,5 +31,6 @@ export type TestFun = (runner: TestRunner) => void | Promise<void>;
 
 /** 运行Test函数的运行器 */
 export interface TestRunner {
-    describe(msg: string, test_fun: TestFun);
+    describe(msg: string, test_fun: Function);
+    it(msg: string, test_fun: Function);
 }

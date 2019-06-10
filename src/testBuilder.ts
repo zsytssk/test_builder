@@ -18,6 +18,10 @@ export class TestBuilderCtor implements TestBuilder {
         const { config, top_scope } = this;
         top_scope.init(config);
     }
+    public run() {
+        const { top_scope, runner } = this;
+        top_scope.run(runner);
+    }
     public findTest(scope: string): TestScope {
         const { top_scope } = this;
         const path_arr = scope.split('.');
