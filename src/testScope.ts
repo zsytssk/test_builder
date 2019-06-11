@@ -1,6 +1,6 @@
 import {
     TestConfig,
-    TestFun,
+    TestScopeFun,
     TestRunner,
     TestScope,
     TestScopeStatus,
@@ -10,14 +10,13 @@ import { runTest } from './utils';
 export type ScopeConfig = {
     enable: boolean;
 };
-
 export class TestScopeCtor implements TestScope {
     public name: string;
     public status: TestScopeStatus = 'normal';
     public children: TestScope[] = [];
-    private raw_fun: TestFun;
+    private raw_fun: TestScopeFun;
     public config: TestConfig;
-    constructor(name: string, fun?: TestFun, config?: TestConfig) {
+    constructor(name: string, fun?: TestScopeFun, config?: TestConfig) {
         this.name = name;
         this.raw_fun = fun;
 

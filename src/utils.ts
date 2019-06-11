@@ -1,4 +1,5 @@
-import { TestScope, TestRunner, TestFun } from './interface';
+import { TestScope, TestRunner, TestScopeFun, TestFun } from './interface';
+import { resolve } from 'url';
 
 export function findTest(scope: TestScope, path: string[]) {
     const { children } = scope;
@@ -16,7 +17,7 @@ export function findTest(scope: TestScope, path: string[]) {
 export function runTest(
     scope: TestScope,
     runner: TestRunner,
-    run_fun: TestFun
+    run_fun: TestScopeFun,
 ) {
     scope.status = 'running';
     const result = run_fun(runner);
@@ -27,4 +28,40 @@ export function runTest(
     } else {
         scope.status = 'complete';
     }
+}
+
+export function asyncRunTestFun(fun: TestFun) {
+    return new Promise((resolve, reject) => {
+        const result = fun();
+        if (result instanceof Promise) {
+            result.then(() => {
+                resolve();
+            });
+        } else {
+            resolve();
+        }
+    });
+}
+
+type asyncRunTestFunType = 'schedule' | 'concurrent';
+export async function asyncRunTestFunArr(
+    fun: TestFun[],
+    type?: asyncRunTestFunType,
+) {
+    if (type === 'concurrent') {
+        const result: Promise<any>[] = [];
+        for (const item of fun) {
+            result.push(asyncRunTestFun(item));
+        }
+        await Promise.all(result);
+        return;
+    }
+
+    for (const item of fun) {
+        await asyncRunTestFun(item);
+    }
+}
+export function logErr(msg: string) {
+    throw new Error(msg);
+    // console.error(...params);
 }

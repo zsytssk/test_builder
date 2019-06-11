@@ -1,3 +1,21 @@
+- @ques 我怎么知道运行失败还是成功了...
+
+  - 怎么获取 expect
+
+- @ques 我怎么知道运行结束了
+
+  - done
+
+- @ques 在什么时候运行这些 testEntity
+
+  - 在获取 TestEntity 数据之后马上执行
+
+- @ques 如何让 describe 中的定义的变量赋值给一个参数..
+
+  - 除了传递参数的方法...
+  - 赋值给全局变量, 这样好吗...
+  - 有没有更好的方法
+
 - @todo testCore
 
   - afterAll
