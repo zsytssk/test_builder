@@ -32,13 +32,17 @@ export function runTest(
 
 export function asyncRunTestFun(fun: TestFun) {
     return new Promise((resolve, reject) => {
-        const result = fun();
-        if (result instanceof Promise) {
-            result.then(() => {
+        try {
+            const result = fun();
+            if (result instanceof Promise) {
+                result.then(() => {
+                    resolve();
+                });
+            } else {
                 resolve();
-            });
-        } else {
-            resolve();
+            }
+        } catch (err) {
+            reject(err);
         }
     });
 }
@@ -63,5 +67,8 @@ export async function asyncRunTestFunArr(
 }
 export function logErr(msg: string) {
     throw new Error(msg);
-    // console.error(...params);
+}
+export function log(...msg: (string | number)[]) {
+    const time = Date.now();
+    console.log(time, ...msg);
 }

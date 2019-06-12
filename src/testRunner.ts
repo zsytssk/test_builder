@@ -66,13 +66,21 @@ export class TestRunnerCtor implements TestRunner {
     }
     private async runTestEntity(entity: TestEntity) {
         const { afterAll, afterEach, beforeAll, beforeEach, itemList } = entity;
-
+        console.group(entity.msg);
         await asyncRunTestFunArr(beforeAll, 'concurrent');
         for (const item of itemList) {
             await asyncRunTestFunArr(beforeEach, 'concurrent');
-            await asyncRunTestFun(item.fun);
+            await asyncRunTestFun(item.fun)
+                .then(() => {
+                    console.log('success:>', item.msg, 'success');
+                })
+                .catch(err => {
+                    console.error('fail:>', item.msg, 'fail');
+                    console.log(err.trace);
+                });
             await asyncRunTestFunArr(afterEach, 'concurrent');
         }
         await asyncRunTestFunArr(afterAll, 'concurrent');
+        console.groupEnd();
     }
 }

@@ -33,6 +33,10 @@ export type TestScopeFun = (runner: TestRunner) => void | Promise<void>;
 export interface TestRunner {
     describe(msg: string, test_fun: Function);
     it(msg: string, test_fun: Function);
+    afterAll(fun: TestFun);
+    beforeAll(fun: TestFun);
+    afterEach(fun: TestFun);
+    beforeEach(fun: TestFun);
 }
 
 export type TestFun = () => void | Promise<void>;

@@ -8,5 +8,7 @@ export class TestEntityCtor implements TestEntity {
     public beforeAll: TestFun[] = [];
     public afterEach: TestFun[] = [];
     public beforeEach: TestFun[] = [];
-    constructor(msg: string) {}
+    constructor(msg: string) {
+        this.msg = msg;
+    }
 }
