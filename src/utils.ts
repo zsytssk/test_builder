@@ -1,4 +1,4 @@
-import { TestScope, TestRunner, TestScopeFun, TestFun } from './interface';
+import { TestScope, TestUtil, TestScopeFun, TestFun } from './interface';
 import { resolve } from 'url';
 
 export function findTest(scope: TestScope, path: string[]) {
@@ -12,21 +12,6 @@ export function findTest(scope: TestScope, path: string[]) {
         if (item.name === cur_name) {
             return findTest(item, path);
         }
-    }
-}
-export function runTest(
-    scope: TestScope,
-    runner: TestRunner,
-    run_fun: TestScopeFun,
-) {
-    scope.status = 'running';
-    const result = run_fun(runner);
-    if (result instanceof Promise) {
-        result.then(() => {
-            scope.status = 'complete';
-        });
-    } else {
-        scope.status = 'complete';
     }
 }
 

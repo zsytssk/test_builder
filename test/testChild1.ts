@@ -1,10 +1,10 @@
 import { Test } from '../src';
-import { TestRunner } from '../src/interface';
+import { TestUtil } from '../src/interface';
 import { log } from '../src/utils';
 import { expect } from 'chai';
 import { sleep } from './testUtils';
 
-export default new Test('scope1', async (runner: TestRunner) => {
+export default new Test('scope1', async (runner: TestUtil) => {
     runner.describe('this is a test', () => {
         let status = '';
         runner.beforeAll(async () => {

@@ -1,5 +1,5 @@
 import { TestBuilderCtor } from '../src/testBuilder';
-import { TestRunner, TestBuilder } from '../src/interface';
+import { TestUtil, TestBuilder } from '../src/interface';
 import { Test } from '../src';
 import child1 from './testChild1';
 import child2 from './testChild2';
