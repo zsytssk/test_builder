@@ -17,7 +17,8 @@ export interface TestScope {
     config: TestConfig;
     children?: TestScope[];
     init(config: TestConfig): void;
-    run(): void;
+    open(): void;
+    runTest(msg: string): Promise<void>;
 }
 
 export type TestScopeStatus = 'normal' | 'running' | 'complete';
@@ -46,6 +47,7 @@ export type TestItem = {
 };
 export interface TestEntity {
     msg: string;
+    fun: TestFun;
     children: TestEntity[];
     afterAll: TestFun[];
     beforeAll: TestFun[];

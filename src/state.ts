@@ -31,10 +31,10 @@ export function openTest(run_fun: TestScopeFun) {
 }
 
 function describe(msg: string, fun: TestFun) {
-    const entity = new TestEntityCtor(msg);
+    const entity = new TestEntityCtor(msg, fun);
     entity_list.push(entity);
 }
-function it(msg: string, fun: TestFun): TestItem {
+function it(msg: string, fun: TestFun) {
     cur_test_entity.itemList.push({
         msg,
         fun,
@@ -53,6 +53,12 @@ function beforeEach(fun: TestFun) {
     cur_test_entity.beforeEach.push(fun);
 }
 
+export async function parseTestEntity(entity: TestEntity) {
+    const { fun } = entity;
+    cur_test_entity = entity;
+    fun();
+    cur_test_entity = undefined;
+}
 export async function runTestEntity(entity: TestEntity) {
     const { afterAll, afterEach, beforeAll, beforeEach, itemList } = entity;
     console.group(entity.msg);
@@ -65,7 +71,7 @@ export async function runTestEntity(entity: TestEntity) {
             })
             .catch(err => {
                 console.error('fail:>', item.msg, 'fail');
-                console.log(err.trace);
+                console.log(err);
             });
         await asyncRunTestFunArr(afterEach, 'concurrent');
     }

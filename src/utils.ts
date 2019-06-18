@@ -1,10 +1,10 @@
 import { TestScope, TestUtil, TestScopeFun, TestFun } from './interface';
 import { resolve } from 'url';
 
-export function findTest(scope: TestScope, path: string[]) {
+export function findTest(scope: TestScope, path: string[]): TestScope {
     const { children } = scope;
 
-    if (path.length) {
+    if (!path.length) {
         return scope;
     }
     const cur_name = path.shift();

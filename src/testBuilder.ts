@@ -16,20 +16,24 @@ export class TestBuilderCtor implements TestBuilder {
     private init() {
         const { config, top_scope } = this;
         top_scope.init(config);
+
+        top_scope.open();
     }
     public run() {
         const { top_scope } = this;
-        top_scope.run();
     }
-    public findTest(scope: string): TestScope {
+    public findTest(scope: string) {
         const { top_scope } = this;
         const path_arr = scope.split('.');
         return findTest(top_scope, path_arr);
     }
-    public runTest(scope: string) {
-        const test = this.findTest(scope);
-        if (!test) {
+    public runTest(scope: string, msg?: string) {
+        const test_scope = this.findTest(scope);
+        if (!test_scope) {
+            console.error(`cant find test for ${scope}`);
+            return;
         }
+        test_scope.runTest(msg);
     }
     public enableTest(scope: string) {}
     public disableTest(scope: string) {}
