@@ -1,7 +1,6 @@
-import { TestBuilderCtor } from '../src/testBuilder';
-import { TestRunner, TestBuilder } from '../src/interface';
-import { Test } from '../src';
-import child from './child';
+import { Test, TestBuilder } from '../src';
+import child1 from './testChild1';
+import child2 from './testChild2';
 
 declare global {
     interface Window {
@@ -10,12 +9,12 @@ declare global {
 }
 
 function main() {
-    const test = new Test('scope');
-    test.add(child);
-    const builder = new TestBuilderCtor(test, {
+    const test = new Test('top');
+    test.add(child1, child2);
+    const builder = new TestBuilder(test, {
         is_on: true,
     });
     globalThis.builder = builder;
-    builder.run();
+    builder.runTest('scope1');
 }
 main();

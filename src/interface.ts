@@ -17,7 +17,8 @@ export interface TestScope {
     config: TestConfig;
     children?: TestScope[];
     init(config: TestConfig): void;
-    run(runner: TestRunner): void;
+    open(): void;
+    runTest(msg: string): Promise<void>;
 }
 
 export type TestScopeStatus = 'normal' | 'running' | 'complete';
@@ -27,10 +28,30 @@ export enum TestResult {
     Success = 'success',
 }
 
-export type TestFun = (runner: TestRunner) => void | Promise<void>;
+export type TestScopeFun = (runner: TestUtil) => void | Promise<void>;
 
 /** 运行Test函数的运行器 */
-export interface TestRunner {
+export interface TestUtil {
     describe(msg: string, test_fun: Function);
     it(msg: string, test_fun: Function);
+    afterAll(fun: TestFun);
+    beforeAll(fun: TestFun);
+    afterEach(fun: TestFun);
+    beforeEach(fun: TestFun);
+}
+
+export type TestFun = () => void | Promise<void>;
+export type TestItem = {
+    msg: string;
+    fun: TestFun;
+};
+export interface TestEntity {
+    msg: string;
+    fun: TestFun;
+    children: TestEntity[];
+    afterAll: TestFun[];
+    beforeAll: TestFun[];
+    afterEach: TestFun[];
+    beforeEach: TestFun[];
+    itemList: TestItem[];
 }

@@ -1,14 +1,13 @@
-import { TestBuilder, TestConfig, TestRunner, TestScope } from './interface';
-import { TestRunnerCtor } from './testRunner';
+import { TestBuilder, TestConfig, TestUtil, TestScope } from './interface';
 import { findTest } from './utils';
+import { initState } from './state';
 
 export class TestBuilderCtor implements TestBuilder {
     private config: TestConfig;
-    private runner: TestRunner;
     private top_scope: TestScope;
     constructor(top_scope: TestScope, default_config: TestConfig) {
         this.top_scope = top_scope;
-        this.runner = new TestRunnerCtor();
+        initState();
         if (default_config) {
             this.config = default_config;
         }
@@ -17,20 +16,24 @@ export class TestBuilderCtor implements TestBuilder {
     private init() {
         const { config, top_scope } = this;
         top_scope.init(config);
+
+        top_scope.open();
     }
     public run() {
-        const { top_scope, runner } = this;
-        top_scope.run(runner);
+        const { top_scope } = this;
     }
-    public findTest(scope: string): TestScope {
+    public findTest(scope: string) {
         const { top_scope } = this;
         const path_arr = scope.split('.');
         return findTest(top_scope, path_arr);
     }
-    public runTest(scope: string) {
-        const test = this.findTest(scope);
-        if (!test) {
+    public runTest(scope: string, msg?: string) {
+        const test_scope = this.findTest(scope);
+        if (!test_scope) {
+            console.error(`cant find test for ${scope}`);
+            return;
         }
+        test_scope.runTest(msg);
     }
     public enableTest(scope: string) {}
     public disableTest(scope: string) {}
