@@ -14,6 +14,13 @@
 
 - @todo testScope 的组织了
 
+- Test 默认执行 describe 默认不执行
+
+## 2019-06-15 18:09:11
+
+- @ques test 里面的运行之后如何组织...
+- 多层 describe it
+- it 中的结果 如何获取...
 - @ques 如果放在项目中如何组织
 
   - 如何方便的调用 Test
