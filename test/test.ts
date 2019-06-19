@@ -10,11 +10,11 @@ declare global {
 
 function main() {
     const test = new Test('top');
-    test.add(child1, child2);
+    test.addChild(child1, child2);
     const builder = new TestBuilder(test, {
-        is_on: true,
+        is_on: false,
     });
     globalThis.builder = builder;
-    builder.runTest('scope1');
+    builder.runTest('scope1.child1Child1');
 }
 main();

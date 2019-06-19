@@ -17,8 +17,9 @@ export interface TestScope {
     config: TestConfig;
     children?: TestScope[];
     init(config: TestConfig): void;
-    open(): void;
+    parseTest(): void;
     runTest(msg: string): Promise<void>;
+    addChild(...children: TestScope[]);
 }
 
 export type TestScopeStatus = 'normal' | 'running' | 'complete';

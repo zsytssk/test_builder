@@ -1,5 +1,4 @@
-import { TestScope, TestUtil, TestScopeFun, TestFun } from './interface';
-import { resolve } from 'url';
+import { TestFun, TestScope } from './interface';
 
 export function findTest(scope: TestScope, path: string[]): TestScope {
     const { children } = scope;

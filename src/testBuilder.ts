@@ -17,10 +17,7 @@ export class TestBuilderCtor implements TestBuilder {
         const { config, top_scope } = this;
         top_scope.init(config);
 
-        top_scope.open();
-    }
-    public run() {
-        const { top_scope } = this;
+        top_scope.parseTest();
     }
     public findTest(scope: string) {
         const { top_scope } = this;
@@ -35,6 +32,12 @@ export class TestBuilderCtor implements TestBuilder {
         }
         test_scope.runTest(msg);
     }
-    public enableTest(scope: string) {}
-    public disableTest(scope: string) {}
+    public enableTest(scope: string) {
+        const test_scope = this.findTest(scope);
+        test_scope.parseTest();
+    }
+    public disableTest(scope: string) {
+        const test_scope = this.findTest(scope);
+        test_scope.parseTest();
+    }
 }

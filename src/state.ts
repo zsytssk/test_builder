@@ -24,7 +24,7 @@ export function initState() {
 }
 
 /** 打开Test */
-export function openTest(run_fun: TestScopeFun) {
+export function parseTest(run_fun: TestScopeFun) {
     entity_list = [];
     run_fun(test_util);
     return entity_list;
