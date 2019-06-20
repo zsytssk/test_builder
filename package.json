@@ -9,6 +9,7 @@
     "scripts": {
         "webpack-dev": "webpack --mode development",
         "webpack-prod": "webpack --mode production",
+        "release": "ts-node  --files ./script/main",
         "test": "ts-node  --files ./test/test"
     },
     "keywords": [

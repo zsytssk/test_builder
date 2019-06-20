@@ -15,6 +15,6 @@ function main() {
         is_on: false,
     });
     globalThis.builder = builder;
-    builder.runTest('scope1.child1Child1');
+    builder.runTest('child1.child1Child1');
 }
 main();

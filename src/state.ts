@@ -26,7 +26,11 @@ export function initState() {
 /** 打开Test */
 export function parseTest(run_fun: TestScopeFun) {
     entity_list = [];
-    run_fun(test_util);
+    try {
+        run_fun(test_util);
+    } catch (e) {
+        console.error(e.stack ? e.stack : e);
+    }
     return entity_list;
 }
 
@@ -56,7 +60,12 @@ function beforeEach(fun: TestFun) {
 export async function parseTestEntity(entity: TestEntity) {
     const { fun } = entity;
     cur_test_entity = entity;
-    fun();
+    try {
+        fun();
+    } catch (e) {
+        console.error(e.stack ? e.stack : e);
+    }
+
     cur_test_entity = undefined;
 }
 export async function runTestEntity(entity: TestEntity) {

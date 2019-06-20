@@ -1,5 +1,11 @@
 - @todo test 放到项目中...
 
+  - 可以做成 npm 包
+
+- @ques 快速搜索 所有 test...
+
+- @ques webpack source_map stack not right
+
 ## 2019-06-19 09:41:15
 
 - @ques 父类 close(is_on:false) 子类 open(is_on:false) 怎么处理...

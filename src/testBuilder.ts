@@ -5,7 +5,7 @@ import { initState } from './state';
 export class TestBuilderCtor implements TestBuilder {
     private config: TestConfig;
     private top_scope: TestScope;
-    constructor(top_scope: TestScope, default_config: TestConfig) {
+    constructor(top_scope: TestScope, default_config?: TestConfig) {
         this.top_scope = top_scope;
         initState();
         if (default_config) {
