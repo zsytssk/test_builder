@@ -1,5 +1,7 @@
 - @todo test 放到项目中...
 
+- 保留 linux 配置
+
 ## 2019-06-19 09:41:15
 
 - @ques 父类 close(is_on:false) 子类 open(is_on:false) 怎么处理...
