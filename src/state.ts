@@ -29,7 +29,7 @@ export function parseTest(run_fun: TestScopeFun) {
     try {
         run_fun(test_util);
     } catch (e) {
-        console.error(e.stack ? e.stack : e);
+        console.error(`TestBuilder:>`, e.stack ? e.stack : e);
     }
     return entity_list;
 }
@@ -59,31 +59,32 @@ function beforeEach(fun: TestFun) {
 
 export async function parseTestEntity(entity: TestEntity) {
     const { fun } = entity;
+
+    console.group(`TestBuilder:>`, entity.msg);
     cur_test_entity = entity;
     try {
         fun();
     } catch (e) {
-        console.error(e.stack ? e.stack : e);
+        console.error(`TestBuilder:>`, e.stack ? e.stack : e);
     }
 
     cur_test_entity = undefined;
+    await runTestEntity(entity);
+    console.groupEnd();
 }
 export async function runTestEntity(entity: TestEntity) {
     const { afterAll, afterEach, beforeAll, beforeEach, itemList } = entity;
-    console.group(entity.msg);
     await asyncRunTestFunArr(beforeAll, 'concurrent');
     for (const item of itemList) {
         await asyncRunTestFunArr(beforeEach, 'concurrent');
         await asyncRunTestFun(item.fun)
             .then(() => {
-                console.log('success:>', item.msg, 'success');
+                console.log(`TestBuilder:>`, 'success:>', item.msg, 'success');
             })
             .catch(err => {
-                console.error('fail:>', item.msg, 'fail');
-                console.log(err);
+                console.error(`TestBuilder:>`, 'fail:>', item.msg, 'fail');
             });
         await asyncRunTestFunArr(afterEach, 'concurrent');
     }
     await asyncRunTestFunArr(afterAll, 'concurrent');
-    console.groupEnd();
 }

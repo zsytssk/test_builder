@@ -1,8 +1,29 @@
+- @todo 改版所有的 test;
+
+- @todo 所有 test 中的 console.log 添加 testBuilder
+  - 统一 test
+
+* @todo test_enable test_disable
+  - 接下来就可以直接放到项目中了...
+
+- @ques 怎么 testBuilder 打印 scope 在 test 运行之后才执行...
+
+  - window.test = testBuilder.mapTest
+
+* @todo testBuilder 项目 同步 legend syncBack
+
+## 2019-06-24 10:11:36
+
 - @todo test 放到项目中...
 
   - 可以做成 npm 包
+  - 怎么在 console 中
 
-- @ques 快速搜索 所有 test...
+- @ques 定位 test, 现在 test 定位十分的麻烦
+
+  - test.xx.xx 这种方式...
+  - 或者有一种方式可以将所有的 test 组织起来
+  - testBuilder.allTest();
 
 - @ques webpack source_map stack not right
 

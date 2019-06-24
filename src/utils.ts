@@ -1,8 +1,7 @@
-import { TestFun, TestScope } from './interface';
+import { TestFun, TestScope, RunTest } from './interface';
 
 export function findTest(scope: TestScope, path: string[]): TestScope {
     const { children } = scope;
-
     if (!path.length) {
         return scope;
     }
@@ -12,6 +11,27 @@ export function findTest(scope: TestScope, path: string[]): TestScope {
             return findTest(item, path);
         }
     }
+}
+
+type MapTestObj = {
+    [key: string]: MapTestObj | RunTest;
+};
+export function mapTest(scope: TestScope) {
+    const { children } = scope;
+    const result = { run: scope.runTest.bind(scope) } as MapTestObj;
+    for (const item of children) {
+        const { name } = item;
+        if (result[name]) {
+            console.warn(
+                `TestBuilder:>`,
+                `${scope.name} has two children has same name:${name}`,
+            );
+        }
+
+        result[name] = mapTest(item);
+    }
+
+    return result;
 }
 
 export function asyncRunTestFun(fun: TestFun) {
@@ -48,11 +68,4 @@ export async function asyncRunTestFunArr(
     for (const item of fun) {
         await asyncRunTestFun(item);
     }
-}
-export function logErr(msg: string) {
-    throw new Error(msg);
-}
-export function log(...msg: (string | number)[]) {
-    const time = Date.now();
-    console.log(time, ...msg);
 }

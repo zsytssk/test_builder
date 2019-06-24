@@ -9,7 +9,8 @@
     "scripts": {
         "webpack-dev": "webpack --mode development",
         "webpack-prod": "webpack --mode production",
-        "release": "ts-node  --files ./script/main",
+        "release": "ts-node  --files ./script/main release",
+        "syncBack": "ts-node  --files ./script/main syncBack",
         "test": "ts-node  --files ./test/test"
     },
     "keywords": [

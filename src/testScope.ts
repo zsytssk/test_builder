@@ -20,7 +20,7 @@ export class TestScopeCtor implements TestScope {
     constructor(name: string, fun?: TestScopeFun, config?: TestConfig) {
         this.name = name;
         this.raw_fun = fun;
-        this.config = config;
+        this.config = config || ({} as TestConfig);
     }
     public init(config: TestConfig) {
         const { children } = this;
@@ -46,20 +46,33 @@ export class TestScopeCtor implements TestScope {
             item.parseTest();
         }
     }
-    public open() {
+    public open(force = false) {
         const { config } = this;
+        if (force) {
+            config.is_on = true;
+        }
         if (config.is_on) {
             return;
         }
         config.is_on = true;
         this.parseTest();
     }
+    public close(force = false) {
+        if (force) {
+            this.config.is_on = false;
+            this.entity_list = [];
+        }
+    }
     public async runTest(msg?: string) {
         const { children, config } = this;
         if (!config.is_on) {
+            console.warn(
+                `TestBuilder:>`,
+                `${this.name} is is_on=${this.config.is_on} `,
+            );
             return;
         }
-        console.group(`${this.name}:>`);
+        console.group(`TestBuilder:>`, `${this.name}:>`);
         await this.runTestEntityList();
         for (const item of children) {
             item.runTest(msg);
@@ -73,15 +86,12 @@ export class TestScopeCtor implements TestScope {
             if (msg) {
                 if (entity.msg === msg) {
                     parseTestEntity(entity);
-                    await runTestEntity(entity);
                 } else {
                     continue;
                 }
             }
 
             parseTestEntity(entity);
-            /** 没有msg直接运行所有entity */
-            await runTestEntity(entity);
         }
     }
 }

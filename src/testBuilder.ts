@@ -1,6 +1,7 @@
 import { TestBuilder, TestConfig, TestUtil, TestScope } from './interface';
-import { findTest } from './utils';
+import { findTest, mapTest } from './utils';
 import { initState } from './state';
+import { test } from 'map/map.spec';
 
 export class TestBuilderCtor implements TestBuilder {
     private config: TestConfig;
@@ -11,9 +12,8 @@ export class TestBuilderCtor implements TestBuilder {
         if (default_config) {
             this.config = default_config;
         }
-        this.init();
     }
-    private init() {
+    public init() {
         const { config, top_scope } = this;
         top_scope.init(config);
 
@@ -27,17 +27,21 @@ export class TestBuilderCtor implements TestBuilder {
     public runTest(scope: string, msg?: string) {
         const test_scope = this.findTest(scope);
         if (!test_scope) {
-            console.error(`cant find test for ${scope}`);
+            console.error(`TestBuilder:>`, `cant find test for ${scope}`);
             return;
         }
         test_scope.runTest(msg);
     }
     public enableTest(scope: string) {
         const test_scope = this.findTest(scope);
-        test_scope.parseTest();
+        test_scope.open(true);
     }
     public disableTest(scope: string) {
         const test_scope = this.findTest(scope);
-        test_scope.parseTest();
+        test_scope.close(true);
+    }
+    public get mapTest() {
+        const { top_scope } = this;
+        return mapTest(top_scope);
     }
 }

@@ -10,6 +10,7 @@ export interface TestBuilder {
     disableTest(scope: string);
 }
 
+export type RunTest = (msg: string) => Promise<void>;
 /** 组织所有的test  */
 export interface TestScope {
     name: string;
@@ -17,8 +18,10 @@ export interface TestScope {
     config: TestConfig;
     children?: TestScope[];
     init(config: TestConfig): void;
+    open(force: boolean): void;
+    close(force: boolean): void;
     parseTest(): void;
-    runTest(msg: string): Promise<void>;
+    runTest: RunTest;
     addChild(...children: TestScope[]);
 }
 
