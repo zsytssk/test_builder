@@ -16,7 +16,7 @@ export class TestScopeCtor implements TestScope {
     public children: TestScope[] = [];
     private raw_fun: TestScopeFun;
     public config: TestConfig;
-    private entity_list: TestEntity[] = [];
+    public entity_list: TestEntity[] = [];
     constructor(name: string, fun?: TestScopeFun, config?: TestConfig) {
         this.name = name;
         this.raw_fun = fun;
@@ -64,7 +64,7 @@ export class TestScopeCtor implements TestScope {
         }
     }
     public async runTest(msg?: string) {
-        const { children, config } = this;
+        const { config } = this;
         if (!config.is_on) {
             console.warn(
                 `TestBuilder:>`,
@@ -73,10 +73,7 @@ export class TestScopeCtor implements TestScope {
             return;
         }
         console.group(`TestBuilder:>`, `${this.name}:>`);
-        await this.runTestEntityList();
-        for (const item of children) {
-            item.runTest(msg);
-        }
+        await this.runTestEntityList(msg);
         console.groupEnd();
     }
     public async runTestEntityList(msg?: string) {
@@ -89,9 +86,9 @@ export class TestScopeCtor implements TestScope {
                 } else {
                     continue;
                 }
+            } else {
+                parseTestEntity(entity);
             }
-
-            parseTestEntity(entity);
         }
     }
 }

@@ -10,6 +10,7 @@ export interface TestBuilder {
     disableTest(scope: string);
 }
 
+export type TestScopeStatus = 'normal' | 'running' | 'complete';
 export type RunTest = (msg: string) => Promise<void>;
 /** 组织所有的test  */
 export interface TestScope {
@@ -17,6 +18,7 @@ export interface TestScope {
     status: TestScopeStatus;
     config: TestConfig;
     children?: TestScope[];
+    entity_list: TestEntity[];
     init(config: TestConfig): void;
     open(force: boolean): void;
     close(force: boolean): void;
@@ -24,8 +26,6 @@ export interface TestScope {
     runTest: RunTest;
     addChild(...children: TestScope[]);
 }
-
-export type TestScopeStatus = 'normal' | 'running' | 'complete';
 
 export enum TestResult {
     Fail = 'fail',
@@ -36,8 +36,8 @@ export type TestScopeFun = (runner: TestUtil) => void | Promise<void>;
 
 /** 运行Test函数的运行器 */
 export interface TestUtil {
-    describe(msg: string, test_fun: Function);
-    it(msg: string, test_fun: Function);
+    describe(msg: string, test_fun: TestFun);
+    it(msg: string, test_fun: TestFun);
     afterAll(fun: TestFun);
     beforeAll(fun: TestFun);
     afterEach(fun: TestFun);

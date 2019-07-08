@@ -1,6 +1,6 @@
 import { cp } from './ls/main';
 
-const dist = 'D:\\zsytssk\\job\\legend\\legend_demo\\test\\testBuilder';
+const dist = 'W:\\test\\testBuilder';
 const src = 'D:\\zsytssk\\job\\legend\\TestBuilder\\src';
 
 const type = process.argv.slice(2)[0];
