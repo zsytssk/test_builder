@@ -14,6 +14,7 @@ function main() {
     const builder = new TestBuilder(test, {
         is_on: false,
     });
+    builder.init();
     globalThis.builder = builder;
     builder.runTest('child1.child1Child1');
 }

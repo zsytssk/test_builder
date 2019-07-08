@@ -1,16 +1,24 @@
-- @todo 改版所有的 test;
+## 2019-06-26 09:58:22
 
-- @todo 所有 test 中的 console.log 添加 testBuilder
+- @todo 更新代码...
+
+* @todo TestBuilder:> mockFunc 记录函数调用的次数...
+
+* @todo 改版所有的 test;
+
+* @todo 所有 test 中的 console.log 添加 testBuilder
   - 统一 test
 
-* @todo test_enable test_disable
+- @todo test_enable test_disable
   - 接下来就可以直接放到项目中了...
 
-- @ques 怎么 testBuilder 打印 scope 在 test 运行之后才执行...
+* @ques 怎么 testBuilder 打印 scope 在 test 运行之后才执行...
 
   - window.test = testBuilder.mapTest
 
-* @todo testBuilder 项目 同步 legend syncBack
+- @todo testBuilder 项目 同步 legend syncBack
+
+- 胡建新莅临指导
 
 ## 2019-06-24 10:11:36
 
