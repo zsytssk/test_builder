@@ -52,11 +52,11 @@ function mapTestScope(scope: TestScope): { map: TestMap; n: number } {
 }
 
 function createRun(scope: TestScope, map: TestMap) {
-    return (index: string | number) => {
+    return (index: string | number, ...params: any[]) => {
         if (typeof index === 'number') {
-            return scope.runTest(map[index]);
+            return scope.runTest(map[index], params);
         } else if (typeof index === 'string') {
-            return scope.runTest(index);
+            return scope.runTest(index, params);
         }
     };
 }

@@ -57,13 +57,13 @@ function beforeEach(fun: TestFun) {
     cur_test_entity.beforeEach.push(fun);
 }
 
-export async function parseTestEntity(entity: TestEntity) {
+export async function parseTestEntity(entity: TestEntity, params?: any[]) {
     const { fun } = entity;
 
     console.group(`TestBuilder:>`, entity.msg);
     cur_test_entity = entity;
     try {
-        fun();
+        fun(...params);
     } catch (e) {
         console.error(`TestBuilder:>`, e.stack ? e.stack : e);
     }
@@ -72,7 +72,7 @@ export async function parseTestEntity(entity: TestEntity) {
     await runTestEntity(entity);
     console.groupEnd();
 }
-export async function runTestEntity(entity: TestEntity) {
+export async function runTestEntity(entity: TestEntity, params?: any[]) {
     const { afterAll, afterEach, beforeAll, beforeEach, itemList } = entity;
     await asyncRunTestFunArr(beforeAll, 'concurrent');
     for (const item of itemList) {

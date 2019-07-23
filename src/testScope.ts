@@ -5,7 +5,7 @@ import {
     TestScopeFun,
     TestScopeStatus,
 } from './interface';
-import { parseTest, parseTestEntity, runTestEntity } from './state';
+import { parseTest, parseTestEntity } from './state';
 
 export type ScopeConfig = {
     enable: boolean;
@@ -63,7 +63,7 @@ export class TestScopeCtor implements TestScope {
             this.entity_list = [];
         }
     }
-    public async runTest(msg?: string) {
+    public async runTest(msg?: string, params?: any[]) {
         const { config } = this;
         if (!config.is_on) {
             console.warn(
@@ -73,21 +73,21 @@ export class TestScopeCtor implements TestScope {
             return;
         }
         console.group(`TestBuilder:>`, `${this.name}:>`);
-        await this.runTestEntityList(msg);
+        await this.runTestEntityList(msg, params);
         console.groupEnd();
     }
-    public async runTestEntityList(msg?: string) {
+    public async runTestEntityList(msg?: string, params?: any[]) {
         const { entity_list } = this;
         for (const entity of entity_list) {
             /** 如果有msg直接运行那个msg 对应的 entity */
             if (msg) {
                 if (entity.msg === msg) {
-                    parseTestEntity(entity);
+                    parseTestEntity(entity, params);
                 } else {
                     continue;
                 }
             } else {
-                parseTestEntity(entity);
+                parseTestEntity(entity, params);
             }
         }
     }

@@ -1,7 +1,7 @@
 import { cp } from './ls/main';
 
-const dist = 'W:\\test\\testBuilder';
-const src = 'D:\\zsytssk\\job\\legend\\TestBuilder\\src';
+const dist = 'Z:\\test\\testBuilder';
+const src = 'D:\\zsytssk\\github\\test_builder\\src';
 
 const type = process.argv.slice(2)[0];
 async function main() {

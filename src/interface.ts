@@ -11,7 +11,7 @@ export interface TestBuilder {
 }
 
 export type TestScopeStatus = 'normal' | 'running' | 'complete';
-export type RunTest = (msg: string) => Promise<void>;
+export type RunTest = (msg?: string, params?: any[]) => Promise<void>;
 /** 组织所有的test  */
 export interface TestScope {
     name: string;
@@ -44,7 +44,7 @@ export interface TestUtil {
     beforeEach(fun: TestFun);
 }
 
-export type TestFun = () => void | Promise<void>;
+export type TestFun = (...params: any[]) => void | Promise<void>;
 export type TestItem = {
     msg: string;
     fun: TestFun;
