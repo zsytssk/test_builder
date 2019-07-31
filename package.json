@@ -11,6 +11,8 @@
         "webpack-prod": "webpack --mode production",
         "release": "ts-node  --files ./script/main release",
         "syncBack": "ts-node  --files ./script/main syncBack",
+        "release2": "ts-node  --files ./script/main release2",
+        "syncBack2": "ts-node  --files ./script/main syncBack2",
         "test": "ts-node  --files ./test/test"
     },
     "keywords": [
